@@ -1,4 +1,4 @@
-##Süperlig Otomasyonu
+# Süperlig Otomasyonu
 *Süperligde bulunan takımların bilgilerini tutan veritabanı uygulaması*
 
 **Projede emeği geçenler**
