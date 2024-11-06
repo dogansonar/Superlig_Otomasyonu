@@ -38,6 +38,7 @@ Liderlik Tablosu karşılaşma sonuçlarına göre Kazanan takıma 3, kaybeden t
 - Takimlar 1:1 Stadlar
 - Takimlar N:1 Karsilasmalar 
 - Stadlar N:1 Karsilasmalar
-  
+
+## E-R Diagramı:
 ![diagram](https://github.com/user-attachments/assets/c1e9979d-f0fa-4a24-ba2f-f63a8de475f6)
 
