@@ -1,9 +1,9 @@
 # Süperlig Otomasyonu
 
 ## Proje Ekibindeki Kişiler:
-- 205260050-Metehan Turgut  
-- 205260006-Doğan Sonar
-- 215260062-Serhan Burak Yaşar     
+- 205260050-Metehan TURGUT  
+- 205260006-Doğan SONAR
+- 215260062-Serhan Burak YAŞAR     
 
 ## Dönem Projesi Gereksinimleri
 
