@@ -39,4 +39,4 @@ Liderlik Tablosu karşılaşma sonuçlarına göre Kazanan takıma 3, kaybeden t
 - Takimlar N:1 Karsilasmalar 
 - Stadlar N:1 Karsilasmalar
 
-  
+![alt text])(https://raw.githubusercontent.com/dogansonar/Superlig-Otomasyonu/refs/heads/main/diagram.png)
