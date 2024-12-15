@@ -9,36 +9,36 @@
 
 Proje Süperligde bulunan takımların karşılaşmalarını, kupalarını stadlarını görebileceğimiz ve değiştirebileceğimiz şekilde tasarlanmıştır. Şu anda herhangi bir yekilendirilme ve yetkiye göre düzenleme yoktur. Yetkilendirme ve düzenleme işlemleri için gereken tasarımlar ve tablolar prosedürler oluşturulurken yeninden üzerinde durulacak dinamiklerdir:
 
-### Fiyatlandırma:
-Kulüp başkanları, takımlarındaki oyuncuların ve teknik direktörlerin fiyatlarını değiştirebilir. oyuncu ekleyebilir ve teknik direktörleri değiştirebilirler. Bu değiştirme işlemi sırasında federasyon tarafından üretilecek olan kabul kodunu kullanmaları zorunludur.
 
-### Karşılaşma:
-Federasyon karşılaşma ekleyip silebilir ve karşılaşma sonucunu belirleyebilir. Takımların uygun ortak saatlerine göre maç saatlerini değiştirebilir. Gereken durumlarda oyuncu ve teknik direktörler üzerinde değişim yapabilirler. Veritabanı sisteminin adminleridir.
+### Maclar:
+Maçlar ayarlanabilecek silinebilecek ve düzenlenebilecek.
 
-### Kupa:
-Kupalar, Her dönem sonu Liderlik tablosuna göre birinci sıradaki takıma otomatik olarak atanır.
+### Futbolcu İstatistikleri:
+Futbolcular istenilen bilgilere göre sıralanabilecek.
 
-### Liderlik Tablosu:
-Liderlik Tablosu karşılaşma sonuçlarına göre Kazanan takıma 3, kaybeden takıma 0, berabere kalan her bir takıma 1 puanı otomatik olarak atar.
+### Lig Durumu:
+Takımların maç sonuçlarının dökümü görünebilecek.
+
 
 ## Varlıklar ve Nitelikleri
-- Futbolcular (id, ad, soyad, takim_id, fiyat),
-- Takimlar (id, isim, teknik_direktor_id),
-- TeknikDirektorler (id, isim, soyisim, fiyat),
-- Kupalar (id, isim, takim_id, alinma_tarihi),
-- Stadlar (id, isim, takim_id, kapasite),
-- Karsilasmalar (id, stad_id, deplasman, kazanan)
-- LiderlikTablosu (sira, takim_id, puan)
+- Futbolcular (futbolcu_id, isim, dogum_tarihi, mevki, uyruk, takim_id)
+- Takimlar (takim_id, isim, teknik_direktor_id, sehir, kurulus_yili)
+- TeknikDirektorler (teknik_direktor_id, isim, uyruk, dogum_tarihi)
+- Hakemler (hakem_id, isim, uyruk, yonettigi_maclar)
+- Stadyumlar (stadyum_id, isim, sehir, kapasite)
+- Maclar (mac_id, ev_sahibi, deplasman, tarih, stadyum_id, ev_sahibi_puan, deplasman_puan, hakem)
+- FutbolcuIstatistik (futbolcu_id, mac_id, goller, asistler, sari_kartlar, kirmizi_kartlar)
+- LigDurumu (takim_id, pozisyon, puanlar, oynandi, kazandi, beraber, maglubiyet, goller, karsi_goller)
 
 ## İlişkiler:
-- Takimlar 1:N Kupalar
-- Takimlar 1:1 TeknikDirektorler
+- Takimlar 1:N TeknikDirektorler
+- Takimlar 1:N Maclar
+- Takimlar 1:1 LigDurumu
 - Takimlar 1:N Futbolcular
-- Takimlar 1:1 LiderlikTablosu 
-- Takimlar 1:1 Stadlar
-- Takimlar N:1 Karsilasmalar 
-- Stadlar N:1 Karsilasmalar
+- Maclar N:1 Hakemler
+- Maclar N:1 Stadyumlar
+- Futbolcular N:M FutbolcuIstatistik
 
 ## E-R Diagramı:
-![diagram](https://github.com/user-attachments/assets/c1e9979d-f0fa-4a24-ba2f-f63a8de475f6)
+![diagram](https://github.com/user-attachments/assets/8f67fd12-4f71-4048-a417-56e386f1cac3)
 
