@@ -226,7 +226,6 @@ BEGIN
     DECLARE @ev_sahibi_puan INT;
     DECLARE @deplasman_puan INT;
     
-    -- Maç bilgilerini alıyoruz
     SELECT @mac_id = mac_id, @ev_sahibi_puan = ev_sahibi_puan, @deplasman_puan = deplasman_puan
     FROM inserted;
     
@@ -447,22 +446,18 @@ CREATE PROCEDURE UpdateMacSonucu
     @deplasman_puan INT
 AS
 BEGIN
-    -- Maçın sonucunu günceller
     UPDATE Maclar
     SET ev_sahibi_puan = @ev_sahibi_puan,
         deplasman_puan = @deplasman_puan
     WHERE mac_id = @mac_id;
 
-    -- Lig durumu tablosunu günceller
     DECLARE @ev_sahibi INT, @deplasman INT;
     SELECT @ev_sahibi = ev_sahibi, @deplasman = deplasman FROM Maclar WHERE mac_id = @mac_id;
 
-    -- Ev sahibi takımın lig durumunu güncelleme
     UPDATE LigDurumu
     SET puanlar = puanlar + @ev_sahibi_puan
     WHERE takim_id = @ev_sahibi;
 
-    -- Deplasman takımının lig durumunu güncelleme
     UPDATE LigDurumu
     SET puanlar = puanlar + @deplasman_puan
     WHERE takim_id = @deplasman;
@@ -478,13 +473,13 @@ EXEC AddTeknikDirektor 'Pep Guardiola', 'İspanya', '1971-01-18';
 EXEC AddTeknikDirektor 'Jürgen Klopp', 'Almanya', '2025-13-01';
 EXEC AddTakim 1, 'Galatasaray';
 EXEC AddTakim 2, 'Barcelona';
-EXEC AddTakim 999, 'Hatalı Takım'; -- Teknik direktör ID bulunmuyor
+EXEC AddTakim 999, 'Hatalı Takım';
 EXEC AddFutbolcu 1, 'Lionel Messi', '1987-06-24', 'Forvet', 'Arjantin';
 EXEC AddFutbolcu 2, 'Gerard Pique', '1987-02-02', 'Defans', 'İspanya';
 EXEC AddFutbolcu 999, 'Cristiano Ronaldo', '1985-02-05', 'Forvet', 'Portekiz';
 EXEC AddHakem 'Cüneyt Çakır', 'Türkiye';
 EXEC AddHakem 'Bjorn Kuipers', 'Hollanda';
-EXEC AddHakem NULL, 'Türkiye'; -- Hakem ismi NULL olamaz
+EXEC AddHakem NULL, 'Türkiye';
 EXEC AddStadyum 'Camp Nou', 'Barcelona', 99354;
 EXEC AddStadyum 'Türk Telekom Arena', 'İstanbul', 52650;
 EXEC AddStadyum 'Hatalı Stadyum', 'İstanbul', -5000;
