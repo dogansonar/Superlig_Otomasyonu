@@ -1,4 +1,6 @@
-﻿CREATE TRIGGER KontrolEtTeknikDirektor
+﻿use SuperligOtomasyonu;
+GO
+CREATE TRIGGER KontrolEtTeknikDirektor
 ON Takimlar
 FOR INSERT, UPDATE
 AS
@@ -12,7 +14,8 @@ BEGIN
         ROLLBACK TRANSACTION;
     END
 END;
-GOCREATE TRIGGER KontrolEtFutbolcuYasi
+GO
+CREATE TRIGGER KontrolEtFutbolcuYasi
 ON Futbolcular
 FOR INSERT, UPDATE
 AS
@@ -28,7 +31,8 @@ BEGIN
         ROLLBACK TRANSACTION;
     END
 END;
-GOCREATE TRIGGER KontrolEtDogumTarihi
+GO
+CREATE TRIGGER KontrolEtDogumTarihi
 ON TeknikDirektorler
 FOR INSERT, UPDATE
 AS
@@ -42,7 +46,8 @@ BEGIN
         ROLLBACK TRANSACTION;
     END
 END;
-GOCREATE TRIGGER FutbolcuIstatistikGuncelle
+GO
+CREATE TRIGGER FutbolcuIstatistikGuncelle
 ON Maclar
 FOR UPDATE
 AS

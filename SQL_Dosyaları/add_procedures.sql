@@ -1,4 +1,7 @@
-﻿CREATE PROCEDURE AddTeknikDirektor
+﻿use SuperligOtomasyonu;
+GO
+
+CREATE PROCEDURE AddTeknikDirektor
     @isim VARCHAR(255),
     @uyruk VARCHAR(50),
     @dogum_tarihi DATE
