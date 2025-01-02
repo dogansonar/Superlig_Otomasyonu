@@ -46,7 +46,7 @@ Takımların maç sonuçlarının dökümü görünebilecek.
 ## Normalizasyon Süreci
 
 ### 1NF Ayrıştırma:
-Bütün kolonlar atomik olduğundan dolayı 1NF
+- Bütün kolonlar atomik olduğundan dolayı 1NF
 
 ### 2NF Ayrıştırma:
 - FutbolcuIstatistik tablosunda her kolon birincil anahtara bağlı 2NF
@@ -57,9 +57,7 @@ Bütün kolonlar atomik olduğundan dolayı 1NF
 	- Takimlar (takim_id, teknik_direktor_id),
 	- TakimBilgileri (takim_id, isim, sehir, kurulus_yili)
 ### BCNF Ayrıştırma:
-Tüm tabloların her determinantı bir aday anahtarı olduğu için BCNF
-
-Şema bu şekilde 3NF hale getirilir.
+- Tüm tabloların her determinantı bir aday anahtarı olduğu için BCNF
 
 ### Normalizasyon Sonrası İlişkiler:
 - Takimlar 1:N TeknikDirektorler
