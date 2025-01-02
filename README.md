@@ -175,7 +175,6 @@ CREATE TABLE LigDurumu (
 </pre>
 
 ## Tetikleyiciler
-
 ### Teknik direktörlerin doğum tarihlerini kontrol eden trigger
 <pre>
 CREATE TRIGGER CheckDogumTarihi
@@ -210,7 +209,6 @@ BEGIN
     END
 END;
 </pre>
-
 ### Futbolcuların yaşının 16'dan büyük olup olmadığını kontrol eden trigger
 <pre>
 CREATE TRIGGER CheckFutbolcuYasi
@@ -230,7 +228,6 @@ BEGIN
     END
 END;
 </pre>
-
 ### Maçlardan sonra çeşitli güncellemeler yapan tetikleyici
 <pre>
 CREATE TRIGGER UpdateFutbolcuIstatistik
