@@ -326,7 +326,7 @@ ADD CONSTRAINT CHK_Puanlar CHECK (ev_sahibi_puan >= 0 AND deplasman_puan >= 0);
 ALTER TABLE FutbolcuIstatistik
 ADD CONSTRAINT CHK_Goller CHECK (goller >= 0 AND asistler >= 0);
 </pre>
-### Lig Durumunu kontrol etmemiz gerek
+### Lig Durumunu kontrol etmek için constraint
 <pre>
 ALTER TABLE LigDurumu
 ADD CONSTRAINT CHK_LigDurumu CHECK (puanlar >= 0 AND oynandi >= 0 AND kazandi >= 0 AND beraber >= 0 AND maglubiyet >= 0);
