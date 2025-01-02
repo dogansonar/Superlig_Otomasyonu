@@ -42,3 +42,31 @@ Takımların maç sonuçlarının dökümü görünebilecek.
 ## E-R Diagramı:
 ![diagram](https://github.com/user-attachments/assets/8f67fd12-4f71-4048-a417-56e386f1cac3)
 
+
+## Normalizasyon Süreci
+
+### 1NF Ayrıştırma:
+Bütün kolonlar atomik olduğundan dolayı 1NF
+
+### 2NF Ayrıştırma:
+- FutbolcuIstatistik tablosunda her kolon birincil anahtara bağlı 2NF
+- LigDurumu tablosunda her kolon doğrudan takim_id ile bağımlı kısmi bağılılık yok 2NF
+
+### 3NF Ayrıştırma:
+- Takimlar tablosu Takimlar ve TakimBilgileri olarak iki ayrı tabloya ayrışır. Transitif bağımlılık ortadan kaldırılır. (isim -> sehir, kurulus_yili)
+	- Takimlar (takim_id, teknik_direktor_id),
+	- TakimBilgileri (takim_id, isim, sehir, kurulus_yili)
+### BCNF Ayrıştırma:
+Tüm tabloların her determinantı bir aday anahtarı olduğu için BCNF
+
+Şema bu şekilde 3NF hale getirilir.
+
+### Normalizasyon Sonrası İlişkiler:
+- Takimlar 1:N TeknikDirektorler
+- Takimlar 1:1 TakimBilgileri
+- Takimlar 1:N Maclar
+- Takimlar 1:1 LigDurumu
+- Takimlar 1:N Futbolcular
+- Maclar N:1 Hakemler
+- Maclar N:1 Stadyumlar
+- Futbolcular N:M FutbolcuIstatistik
