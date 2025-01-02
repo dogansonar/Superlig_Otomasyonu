@@ -172,7 +172,7 @@ CREATE TABLE LigDurumu (
     PRIMARY KEY (takim_id),
     FOREIGN KEY (takim_id) REFERENCES Takimlar(takim_id)
 );
-<pre>
+</pre>
 
 ## Tetikleyiciler
 
@@ -192,7 +192,7 @@ BEGIN
         ROLLBACK TRANSACTION;
     END
 END;
-<pre>
+</pre>
 ### Takımların teknik direktörlerinin olup olmadığını kontol eden trigger
 <pre>
 CREATE TRIGGER CheckTeknikDirektor
@@ -209,7 +209,7 @@ BEGIN
         ROLLBACK TRANSACTION;
     END
 END;
-<pre>
+</pre>
 
 ### Futbolcuların yaşının 16'dan büyük olup olmadığını kontrol eden trigger
 <pre>
@@ -229,7 +229,7 @@ BEGIN
         ROLLBACK TRANSACTION;
     END
 END;
-<pre>
+</pre>
 
 ### Maçlardan sonra çeşitli güncellemeler yapan tetikleyici
 <pre>
@@ -296,4 +296,4 @@ BEGIN
     WHERE mac_id = @mac_id;
 
 END;
-<pre>
+</pre>
