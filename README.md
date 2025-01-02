@@ -73,12 +73,10 @@ Tüm tabloların her determinantı bir aday anahtarı olduğu için BCNF
 
 ## SQL Kodları
 <pre>
--- Veritabanı Oluşturulur
 CREATE DATABASE SuperligOtomasyonu;
 
 USE SuperligOtomasyonu;
 
--- Teknik Direktörler Tablosu Oluşturulur
 CREATE TABLE TeknikDirektorler (
     teknik_direktor_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -86,14 +84,12 @@ CREATE TABLE TeknikDirektorler (
     dogum_tarihi DATE
 );
 
--- Takımlar Tablosu Oluşturulur
 CREATE TABLE Takimlar (
     takim_id INT IDENTITY(1,1) PRIMARY KEY,
     teknik_direktor_id INT,
     FOREIGN KEY (teknik_direktor_id) REFERENCES TeknikDirektorler(teknik_direktor_id)
 );
 
--- Takım Bilgileri Tablosu Oluşturulur
 CREATE TABLE TakimBilgileri (
     takim_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -102,7 +98,6 @@ CREATE TABLE TakimBilgileri (
     FOREIGN KEY (takim_id) REFERENCES Takimlar(takim_id)
 );
 
--- Futbolcular Tablosu Oluşuturulur
 CREATE TABLE Futbolcular (
     futbolcu_id INT IDENTITY(1,1) PRIMARY KEY,
     takim_id INT,
@@ -113,7 +108,6 @@ CREATE TABLE Futbolcular (
     FOREIGN KEY (takim_id) REFERENCES Takimlar(takim_id)
 );
 
--- Hakemler Tablosu Oluşuturulur
 CREATE TABLE Hakemler (
     hakem_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -121,7 +115,6 @@ CREATE TABLE Hakemler (
     yonettigi_maclar INT DEFAULT 0
 );
 
--- Stadyumlar Tablosu Oluşuturulur
 CREATE TABLE Stadyumlar (
     stadyum_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -129,7 +122,6 @@ CREATE TABLE Stadyumlar (
     kapasite INT
 );
 
--- Maçlar Tablosu Oluşuturulur
 CREATE TABLE Maclar (
     mac_id INT IDENTITY(1,1) PRIMARY KEY,
     ev_sahibi INT,
@@ -145,7 +137,6 @@ CREATE TABLE Maclar (
     FOREIGN KEY (hakem) REFERENCES Hakemler(hakem_id)
 );
 
--- Futbolcu İstatistikleri Tablosu Oluşuturulur
 CREATE TABLE FutbolcuIstatistik (
     futbolcu_id INT,
     mac_id INT,
@@ -158,7 +149,6 @@ CREATE TABLE FutbolcuIstatistik (
     FOREIGN KEY (mac_id) REFERENCES Maclar(mac_id)
 );
 
--- Ligdeki İlerlemeler Tablosu Oluşuturulur
 CREATE TABLE LigDurumu (
     takim_id INT,
     pozisyon INT,
@@ -242,7 +232,6 @@ BEGIN
     SELECT @mac_id = mac_id, @ev_sahibi_puan = ev_sahibi_puan, @deplasman_puan = deplasman_puan
     FROM inserted;
     
-    -- Ev sahibi takımının futbolcularının istatistiklerini güncelleme
     UPDATE FutbolcuIstatistik
     SET goller = goller + (SELECT COUNT(*) FROM Futbolcular
                            WHERE takim_id = (SELECT ev_sahibi FROM Maclar WHERE mac_id = @mac_id) 
@@ -252,7 +241,6 @@ BEGIN
                            AND futbolcu_id IN (SELECT futbolcu_id FROM FutbolcuIstatistik WHERE mac_id = @mac_id AND asistler > 0))
     WHERE mac_id = @mac_id;
 
-    -- Deplasman takımının futbolcularının istatistiklerini güncelleme
     UPDATE FutbolcuIstatistik
     SET goller = goller + (SELECT COUNT(*) FROM Futbolcular
                            WHERE takim_id = (SELECT deplasman FROM Maclar WHERE mac_id = @mac_id) 
@@ -261,11 +249,7 @@ BEGIN
                            WHERE takim_id = (SELECT deplasman FROM Maclar WHERE mac_id = @mac_id) 
                            AND futbolcu_id IN (SELECT futbolcu_id FROM FutbolcuIstatistik WHERE mac_id = @mac_id AND asistler > 0))
     WHERE mac_id = @mac_id;
-    
-    -- Gol sayısı, asist sayısı vb. gibi istatistiklerin güncellenmesi
-    -- Sarı kart, kırmızı kart gibi istatistiklerin güncellenmesi için benzer işlemleri yapabilirsiniz.
 
-    -- Örneğin, sarı kartları güncelleme
     UPDATE FutbolcuIstatistik
     SET sari_kartlar = sari_kartlar + (SELECT COUNT(*) FROM Futbolcular
                                        WHERE takim_id = (SELECT ev_sahibi FROM Maclar WHERE mac_id = @mac_id) 
@@ -278,7 +262,6 @@ BEGIN
                                        AND futbolcu_id IN (SELECT futbolcu_id FROM FutbolcuIstatistik WHERE mac_id = @mac_id AND sari_kartlar > 0))
     WHERE mac_id = @mac_id;
 
-    -- Kırmızı kartları güncelleme
     UPDATE FutbolcuIstatistik
     SET kirmizi_kartlar = kirmizi_kartlar + (SELECT COUNT(*) FROM Futbolcular
                                              WHERE takim_id = (SELECT ev_sahibi FROM Maclar WHERE mac_id = @mac_id) 
@@ -353,7 +336,6 @@ BEGIN
     INSERT INTO Takimlar (teknik_direktor_id)
     VALUES (@teknik_direktor_id);
 
-    -- Takım ismi ekleme, bu işlem TakimBilgileri tablosunda yapılabilir.
     INSERT INTO TakimBilgileri (isim)
     VALUES (@isim);
 END;
@@ -495,25 +477,25 @@ use SuperligOtomasyonu;
 
 EXEC AddTeknikDirektor 'Fatih Terim', 'Türkiye', '1953-09-04';
 EXEC AddTeknikDirektor 'Pep Guardiola', 'İspanya', '1971-01-18';
-EXEC AddTeknikDirektor 'Jürgen Klopp', 'Almanya', '2025-13-01'; -- Hatalı tarih formatı
+EXEC AddTeknikDirektor 'Jürgen Klopp', 'Almanya', '2025-13-01';
 EXEC AddTakim 1, 'Galatasaray';
 EXEC AddTakim 2, 'Barcelona';
 EXEC AddTakim 999, 'Hatalı Takım'; -- Teknik direktör ID bulunmuyor
 EXEC AddFutbolcu 1, 'Lionel Messi', '1987-06-24', 'Forvet', 'Arjantin';
 EXEC AddFutbolcu 2, 'Gerard Pique', '1987-02-02', 'Defans', 'İspanya';
-EXEC AddFutbolcu 999, 'Cristiano Ronaldo', '1985-02-05', 'Forvet', 'Portekiz'; -- Takım ID mevcut değil
+EXEC AddFutbolcu 999, 'Cristiano Ronaldo', '1985-02-05', 'Forvet', 'Portekiz';
 EXEC AddHakem 'Cüneyt Çakır', 'Türkiye';
 EXEC AddHakem 'Bjorn Kuipers', 'Hollanda';
 EXEC AddHakem NULL, 'Türkiye'; -- Hakem ismi NULL olamaz
 EXEC AddStadyum 'Camp Nou', 'Barcelona', 99354;
 EXEC AddStadyum 'Türk Telekom Arena', 'İstanbul', 52650;
-EXEC AddStadyum 'Hatalı Stadyum', 'İstanbul', -5000; -- Kapasite negatif olamaz
-EXEC AddMac 1, 2, '2025-01-15 20:00:00', 1, 3, 1, 1; -- Galatasaray ve Barcelona arasında bir maç
-EXEC AddMac 999, 2, '2025-01-15 20:00:00', 1, 3, 1, 1; -- Ev sahibi takım mevcut değil
-EXEC AddFutbolcuIstatistik 1, 1, 2, 1, 0, 0; -- Messi 2 gol, 1 asist yaptı
-EXEC AddFutbolcuIstatistik 2, 1, 0, 0, 1, 0; -- Pique 1 sarı kart aldı
-EXEC AddFutbolcuIstatistik 999, 1, 1, 0, 0, 0; -- Futbolcu ID mevcut değil
-EXEC UpdateLigDurumu 1, 1, 3, 1, 1, 0, 0, 2, 0; -- Galatasaray 3 puan kazandı
-EXEC UpdateLigDurumu 2, 2, 1, 1, 0, 1, 0, 1, 2; -- Barcelona 1 puan kazandı
-EXEC UpdateLigDurumu 999, 3, 0, 1, 0, 0, 1, 0, 2; -- Takım ID mevcut değil
+EXEC AddStadyum 'Hatalı Stadyum', 'İstanbul', -5000;
+EXEC AddMac 1, 2, '2025-01-15 20:00:00', 1, 3, 1, 1;
+EXEC AddMac 999, 2, '2025-01-15 20:00:00', 1, 3, 1, 1;
+EXEC AddFutbolcuIstatistik 1, 1, 2, 1, 0, 0;
+EXEC AddFutbolcuIstatistik 2, 1, 0, 0, 1, 0;
+EXEC AddFutbolcuIstatistik 999, 1, 1, 0, 0, 0;
+EXEC UpdateLigDurumu 1, 1, 3, 1, 1, 0, 0, 2, 0;
+EXEC UpdateLigDurumu 2, 2, 1, 1, 0, 1, 0, 1, 2;
+EXEC UpdateLigDurumu 999, 3, 0, 1, 0, 0, 1, 0, 2;
 <pre>
