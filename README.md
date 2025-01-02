@@ -75,8 +75,6 @@ Tüm tabloların her determinantı bir aday anahtarı olduğu için BCNF
 <pre>
 -- Veritabanı Oluşturulur
 CREATE DATABASE SuperligOtomasyonu;
-<pre>
-<pre>
 
 USE SuperligOtomasyonu;
 
