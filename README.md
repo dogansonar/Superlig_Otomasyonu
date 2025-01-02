@@ -174,7 +174,6 @@ CREATE TABLE LigDurumu (
 );
 </pre>
 
-## Tetikleyiciler
 ### Teknik direktörlerin doğum tarihlerini kontrol eden trigger
 <pre>
 CREATE TRIGGER CheckDogumTarihi
@@ -295,7 +294,6 @@ BEGIN
 END;
 </pre>
 
-## Constraints
 ### Takımların kuruluş yılını kontrol etmek için constraint
 <pre>
 ALTER TABLE TakimBilgileri
@@ -332,7 +330,6 @@ ALTER TABLE LigDurumu
 ADD CONSTRAINT CHK_LigDurumu CHECK (puanlar >= 0 AND oynandi >= 0 AND kazandi >= 0 AND beraber >= 0 AND maglubiyet >= 0);
 </pre>
 
-## Prosedürler
 ### Teknik Direktör Ekleyen Prosedür
 <pre>
 CREATE PROCEDURE AddTeknikDirektor
@@ -492,7 +489,7 @@ BEGIN
 END;
 </pre>
 
-## Test Sorguları ile kodların çalışıp çalışmadığını kontrol edebilirsiniz
+### Test Sorguları ile kodların çalışıp çalışmadığını kontrol edebilirsiniz
 <pre>
 use SuperligOtomasyonu;
 
