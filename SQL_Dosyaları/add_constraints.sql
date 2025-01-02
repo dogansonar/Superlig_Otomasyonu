@@ -1,5 +1,3 @@
-use SuperligOtomasyonu;
-
 ALTER TABLE TakimBilgileri
 ADD CONSTRAINT CHK_KurulusYili CHECK (kurulus_yili > 1800 AND kurulus_yili <= YEAR(GETDATE()));
 

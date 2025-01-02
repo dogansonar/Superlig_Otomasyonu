@@ -1,7 +1,6 @@
 ﻿
 USE SuperligOtomasyonu;
 
--- Teknik Direktörler Tablosu Oluşturulur
 CREATE TABLE TeknikDirektorler (
     teknik_direktor_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -9,14 +8,12 @@ CREATE TABLE TeknikDirektorler (
     dogum_tarihi DATE
 );
 
--- Takımlar Tablosu Oluşturulur
 CREATE TABLE Takimlar (
     takim_id INT IDENTITY(1,1) PRIMARY KEY,
     teknik_direktor_id INT,
     FOREIGN KEY (teknik_direktor_id) REFERENCES TeknikDirektorler(teknik_direktor_id)
 );
 
--- Takım Bilgileri Tablosu Oluşturulur
 CREATE TABLE TakimBilgileri (
     takim_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -25,7 +22,6 @@ CREATE TABLE TakimBilgileri (
     FOREIGN KEY (takim_id) REFERENCES Takimlar(takim_id)
 );
 
--- Futbolcular Tablosu Oluşuturulur
 CREATE TABLE Futbolcular (
     futbolcu_id INT IDENTITY(1,1) PRIMARY KEY,
     takim_id INT,
@@ -36,7 +32,6 @@ CREATE TABLE Futbolcular (
     FOREIGN KEY (takim_id) REFERENCES Takimlar(takim_id)
 );
 
--- Hakemler Tablosu Oluşuturulur
 CREATE TABLE Hakemler (
     hakem_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -44,7 +39,6 @@ CREATE TABLE Hakemler (
     yonettigi_maclar INT DEFAULT 0
 );
 
--- Stadyumlar Tablosu Oluşuturulur
 CREATE TABLE Stadyumlar (
     stadyum_id INT IDENTITY(1,1) PRIMARY KEY,
     isim VARCHAR(255) NOT NULL,
@@ -52,7 +46,6 @@ CREATE TABLE Stadyumlar (
     kapasite INT
 );
 
--- Maçlar Tablosu Oluşuturulur
 CREATE TABLE Maclar (
     mac_id INT IDENTITY(1,1) PRIMARY KEY,
     ev_sahibi INT,
@@ -68,7 +61,6 @@ CREATE TABLE Maclar (
     FOREIGN KEY (hakem) REFERENCES Hakemler(hakem_id)
 );
 
--- Futbolcu İstatistikleri Tablosu Oluşuturulur
 CREATE TABLE FutbolcuIstatistik (
     futbolcu_id INT,
     mac_id INT,
@@ -81,7 +73,6 @@ CREATE TABLE FutbolcuIstatistik (
     FOREIGN KEY (mac_id) REFERENCES Maclar(mac_id)
 );
 
--- Ligdeki İlerlemeler Tablosu Oluşuturulur
 CREATE TABLE LigDurumu (
     takim_id INT,
     pozisyon INT,

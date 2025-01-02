@@ -1,2 +1,1 @@
-﻿-- Veritabanı Oluşturulur
-CREATE DATABASE SuperligOtomasyonu;
+﻿CREATE DATABASE SuperligOtomasyonu;

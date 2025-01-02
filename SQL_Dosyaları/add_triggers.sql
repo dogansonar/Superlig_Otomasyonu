@@ -1,5 +1,4 @@
-﻿use SuperligOtomasyonu;
-GO
+﻿GO
 CREATE TRIGGER KontrolEtTeknikDirektor
 ON Takimlar
 FOR INSERT, UPDATE
@@ -56,11 +55,9 @@ BEGIN
     DECLARE @ev_sahibi_puan INT;
     DECLARE @deplasman_puan INT;
     
-    -- Maç bilgilerini alıyoruz
     SELECT @mac_id = mac_id, @ev_sahibi_puan = ev_sahibi_puan, @deplasman_puan = deplasman_puan
     FROM inserted;
     
-    -- Ev sahibi takımının futbolcularının istatistiklerini güncelleme
     UPDATE FutbolcuIstatistik
     SET goller = goller + (SELECT COUNT(*) FROM Futbolcular
                            WHERE takim_id = (SELECT ev_sahibi FROM Maclar WHERE mac_id = @mac_id) 
@@ -70,7 +67,6 @@ BEGIN
                            AND futbolcu_id IN (SELECT futbolcu_id FROM FutbolcuIstatistik WHERE mac_id = @mac_id AND asistler > 0))
     WHERE mac_id = @mac_id;
 
-    -- Deplasman takımının futbolcularının istatistiklerini güncelleme
     UPDATE FutbolcuIstatistik
     SET goller = goller + (SELECT COUNT(*) FROM Futbolcular
                            WHERE takim_id = (SELECT deplasman FROM Maclar WHERE mac_id = @mac_id) 
@@ -80,10 +76,6 @@ BEGIN
                            AND futbolcu_id IN (SELECT futbolcu_id FROM FutbolcuIstatistik WHERE mac_id = @mac_id AND asistler > 0))
     WHERE mac_id = @mac_id;
     
-    -- Gol sayısı, asist sayısı vb. gibi istatistiklerin güncellenmesi
-    -- Sarı kart, kırmızı kart gibi istatistiklerin güncellenmesi için benzer işlemleri yapabilirsiniz.
-
-    -- Örneğin, sarı kartları güncelleme
     UPDATE FutbolcuIstatistik
     SET sari_kartlar = sari_kartlar + (SELECT COUNT(*) FROM Futbolcular
                                        WHERE takim_id = (SELECT ev_sahibi FROM Maclar WHERE mac_id = @mac_id) 
@@ -96,7 +88,6 @@ BEGIN
                                        AND futbolcu_id IN (SELECT futbolcu_id FROM FutbolcuIstatistik WHERE mac_id = @mac_id AND sari_kartlar > 0))
     WHERE mac_id = @mac_id;
 
-    -- Kırmızı kartları güncelleme
     UPDATE FutbolcuIstatistik
     SET kirmizi_kartlar = kirmizi_kartlar + (SELECT COUNT(*) FROM Futbolcular
                                              WHERE takim_id = (SELECT ev_sahibi FROM Maclar WHERE mac_id = @mac_id) 

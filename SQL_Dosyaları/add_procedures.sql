@@ -1,5 +1,4 @@
-﻿use SuperligOtomasyonu;
-GO
+﻿GO
 
 CREATE PROCEDURE AddTeknikDirektor
     @isim VARCHAR(255),
@@ -19,7 +18,6 @@ BEGIN
     INSERT INTO Takimlar (teknik_direktor_id)
     VALUES (@teknik_direktor_id);
 
-    -- Takım ismi ekleme, bu işlem TakimBilgileri tablosunda yapılabilir.
     INSERT INTO TakimBilgileri (isim)
     VALUES (@isim);
 END;
@@ -112,22 +110,18 @@ CREATE PROCEDURE UpdateMacSonucu
     @deplasman_puan INT
 AS
 BEGIN
-    -- Maçın sonucunu günceller
     UPDATE Maclar
     SET ev_sahibi_puan = @ev_sahibi_puan,
         deplasman_puan = @deplasman_puan
     WHERE mac_id = @mac_id;
 
-    -- Lig durumu tablosunu günceller
     DECLARE @ev_sahibi INT, @deplasman INT;
     SELECT @ev_sahibi = ev_sahibi, @deplasman = deplasman FROM Maclar WHERE mac_id = @mac_id;
 
-    -- Ev sahibi takımın lig durumunu güncelleme
     UPDATE LigDurumu
     SET puanlar = puanlar + @ev_sahibi_puan
     WHERE takim_id = @ev_sahibi;
 
-    -- Deplasman takımının lig durumunu güncelleme
     UPDATE LigDurumu
     SET puanlar = puanlar + @deplasman_puan
     WHERE takim_id = @deplasman;
